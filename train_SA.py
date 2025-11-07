@@ -489,9 +489,9 @@ for iDataSet in range(nDataSet):
                 KNN_classifier.fit(train_features.cpu().detach().numpy(), train_labels)
 
                 # ########################################################################
-                all_test_features = []   ####存贮所有测试集的特征  
-                all_test_labels = []   ####存贮所有测试集对应的标签   
-                batch_counter = 0  # 添加一个计数器来跟踪批次数量     
+                # all_test_features = []   ####存贮所有测试集的特征  
+                # all_test_labels = []   ####存贮所有测试集对应的标签   
+                # batch_counter = 0  # 添加一个计数器来跟踪批次数量     
                 # ########################################################################
                 for test_datas, test_labels in test_loader:
                     batch_size = test_labels.shape[0]
@@ -500,11 +500,11 @@ for iDataSet in range(nDataSet):
                     test_features = (test_features - min_value) * 1.0 / (max_value - min_value)
 
                     ######################################################################
-                    if batch_counter <= 520:  #不同数据集设置不同（IP：100，SA：520，UP：420，HT：100）
-                        all_test_features.append(test_features)
-                        all_test_labels.append(test_labels)
+                    # if batch_counter <= 520:  #不同数据集设置不同（IP：100，SA：520，UP：420，HT：100）
+                    #     all_test_features.append(test_features)
+                    #     all_test_labels.append(test_labels)
 
-                    batch_counter += 1  # 每次迭代后增加计数器
+                    # batch_counter += 1  # 每次迭代后增加计数器
                     ###########################################################################
 
 
@@ -528,10 +528,10 @@ for iDataSet in range(nDataSet):
                 logger.info('\t\tAccuracy: {}/{} ({:.2f}%)\n'.format(total_rewards, len(test_loader.dataset), 100. * total_rewards / len(test_loader.dataset)))
                 
                 ###################################################################################
-                all_test_features = torch.stack(all_test_features).view(-1,128)  #128表示特征最终的输出维度
-                all_test_labels = torch.stack(all_test_labels).view(-1)
-                print(all_test_features.shape)
-                print(all_test_labels.shape)
+                # all_test_features = torch.stack(all_test_features).view(-1,128)  #128表示特征最终的输出维度
+                # all_test_labels = torch.stack(all_test_labels).view(-1)
+                # print(all_test_features.shape)
+                # print(all_test_labels.shape)
                 # ###################################################################################
 
                 test_accuracy = 100. * total_rewards / len(test_loader.dataset)
@@ -540,47 +540,47 @@ for iDataSet in range(nDataSet):
                     100. * total_rewards / len(test_loader.dataset)))
                 
                 # ###################################################################################
-                # 使用t-SNE进行降维
-                tsne = TSNE(n_components=2, random_state=42)
-                X_tsne = tsne.fit_transform(all_test_features.cpu().detach().numpy())
+                # # 使用t-SNE进行降维
+                # tsne = TSNE(n_components=2, random_state=42)
+                # X_tsne = tsne.fit_transform(all_test_features.cpu().detach().numpy())
 
-                # 归一化
-                x_min, x_max = X_tsne.min(0), X_tsne.max(0)
-                X_norm = (X_tsne - x_min) / (x_max - x_min)
+                # # 归一化
+                # x_min, x_max = X_tsne.min(0), X_tsne.max(0)
+                # X_norm = (X_tsne - x_min) / (x_max - x_min)
 
-                # 绘制t-SNE可视化图
-                plt.figure(figsize=(10, 8))
-                plt.rcParams['font.sans-serif'] = ['Times New Roman']  # 图中文字体设置为Times New Roman
+                # # 绘制t-SNE可视化图
+                # plt.figure(figsize=(10, 8))
+                # plt.rcParams['font.sans-serif'] = ['Times New Roman']  # 图中文字体设置为Times New Roman
 
-                shape_list = ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o']
-                color_list = [(0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 0), (0.5, 0.5, 1),
-                          (0.65, 0.35, 1), (0.75, 0.5, 0.75), (0.75, 1, 0.5), (0.5, 1, 0.65), (0.65, 0.65, 0), (0.75, 1, 0.65),
-                          (0, 0, 0.5), (0, 1, 0.75), (0.5, 0.75, 1)]  # 设置不同类别的颜色，避免重复，与classificationmap对应
-
-
-                label_list = ['1', '2', '3', '4', '5', '6', '7', '8','9','10','11','12','13','14','15','16']
-                # 遍历所有标签种类
-                for i in range(len(np.unique(all_test_labels))):
-                    plt.scatter(X_norm[all_test_labels == i, 0], X_norm[all_test_labels == i, 1],color=color_list[i % len(color_list)],
-                                marker=shape_list[i % len(shape_list)], s=80, label=label_list[i])
-
-                # 添加图例，并设置字体大小################################################
-                plt.legend(fontsize=15,loc='upper right',bbox_to_anchor=(1.13, 1.02))
-
-                ax = plt.gca()  # gca:get current axis得到当前轴
-                ax.spines['right'].set_linewidth(2.0)  # 设置边框线宽为2.0
-                ax.spines['top'].set_linewidth(2.0)  # 设置边框线宽为2.0
-                ax.spines['bottom'].set_linewidth(2.0)  # 设置边框线宽为2.0
-                ax.spines['left'].set_linewidth(2.0)  # 设置边框线宽为2.0
-
-                plt.xticks(fontsize=20)  # 定义坐标轴刻度
-                plt.yticks(fontsize=20)
+                # shape_list = ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o']
+                # color_list = [(0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 0), (0.5, 0.5, 1),
+                #           (0.65, 0.35, 1), (0.75, 0.5, 0.75), (0.75, 1, 0.5), (0.5, 1, 0.65), (0.65, 0.65, 0), (0.75, 1, 0.65),
+                #           (0, 0, 0.5), (0, 1, 0.75), (0.5, 0.75, 1)]  # 设置不同类别的颜色，避免重复，与classificationmap对应
 
 
-                plt.axis('equal')  # 确保x和y轴的缩放相同
+                # label_list = ['1', '2', '3', '4', '5', '6', '7', '8','9','10','11','12','13','14','15','16']
+                # # 遍历所有标签种类
+                # for i in range(len(np.unique(all_test_labels))):
+                #     plt.scatter(X_norm[all_test_labels == i, 0], X_norm[all_test_labels == i, 1],color=color_list[i % len(color_list)],
+                #                 marker=shape_list[i % len(shape_list)], s=80, label=label_list[i])
 
-                # plt.show()  # 显示图形
-                plt.savefig(f'./TSNE/SA/SA_visualization_seed_{seeds[iDataSet]}_episode_{episode+1}_acc{test_accuracy}.png', dpi=600)
+                # # 添加图例，并设置字体大小################################################
+                # plt.legend(fontsize=15,loc='upper right',bbox_to_anchor=(1.13, 1.02))
+
+                # ax = plt.gca()  # gca:get current axis得到当前轴
+                # ax.spines['right'].set_linewidth(2.0)  # 设置边框线宽为2.0
+                # ax.spines['top'].set_linewidth(2.0)  # 设置边框线宽为2.0
+                # ax.spines['bottom'].set_linewidth(2.0)  # 设置边框线宽为2.0
+                # ax.spines['left'].set_linewidth(2.0)  # 设置边框线宽为2.0
+
+                # plt.xticks(fontsize=20)  # 定义坐标轴刻度
+                # plt.yticks(fontsize=20)
+
+
+                # plt.axis('equal')  # 确保x和y轴的缩放相同
+
+                # # plt.show()  # 显示图形
+                # plt.savefig(f'./TSNE/SA/SA_visualization_seed_{seeds[iDataSet]}_episode_{episode+1}_acc{test_accuracy}.png', dpi=600)
                 # ##################################################################################                
                 
                 test_end = time.time()
