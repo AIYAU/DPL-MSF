@@ -500,7 +500,7 @@ for iDataSet in range(nDataSet):
                     test_features = (test_features - min_value) * 1.0 / (max_value - min_value)
 
                     ######################################################################
-                    # if batch_counter <= 520:  #不同数据集设置不同（IP：100，SA：520，UP：420，HT：100）
+                    # if batch_counter <= 520:  #不同数据集设置不同（IP：100，SA：520，UP：420，HT：140）
                     #     all_test_features.append(test_features)
                     #     all_test_labels.append(test_labels)
 
