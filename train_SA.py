@@ -257,7 +257,7 @@ for iDataSet in range(nDataSet):
         # 独热编码的长度
         num_classes = 19
         # 生成一个高斯分布扰动的张量
-        std_dev = 0.005     # 标准差
+        std_dev = 0.001     # 标准差
         mean_value = 0   # 均值
         perturbation = torch.randn(num_classes) * std_dev + mean_value # 生成扰动 
         perturbation = perturbation.abs() # 取扰动的绝对值，确保所有值都是正数
