@@ -498,7 +498,7 @@ for iDataSet in range(nDataSet):
                     test_features = (test_features - min_value) * 1.0 / (max_value - min_value)
 
                     ######################################################################
-                    # if batch_counter <= 100:  #不同数据集设置不同（IP：100，SA：520，UP：420，HT：100）
+                    # if batch_counter <= 100:  #不同数据集设置不同（IP：100，SA：520，UP：420，HT：140）
                     #     all_test_features.append(test_features)
                     #     all_test_labels.append(test_labels)
 
@@ -563,7 +563,7 @@ for iDataSet in range(nDataSet):
                 #                 marker=shape_list[i % len(shape_list)], s=80, label=label_list[i])
 
                 # # 添加图例，并设置字体大小################################################
-                # plt.legend(fontsize=15,loc='upper right',bbox_to_anchor=(1.13, 1.02)) # 图像中的类别说明的比例可以走这里调整
+                # plt.legend(fontsize=15,loc='upper right',bbox_to_anchor=(1.13, 1.02)) # 图像中的类别说明的比例可以走这里调整（1.146，1.02）
 
                 # ax = plt.gca()  # gca:get current axis得到当前轴
                 # ax.spines['right'].set_linewidth(2.0)  # 设置边框线宽为2.0
